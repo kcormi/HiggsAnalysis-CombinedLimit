@@ -108,7 +108,6 @@ Combine::Combine() :
     rMax_(std::numeric_limits<float>::quiet_NaN()) {
     namespace po = boost::program_options;
     statOptions_.add_options()
-      //("systematics,S", po::value<bool>(&withSystematics)->default_value(true), "Include constrained systematic uncertainties, -S 0 will ignore systematics constraint terms in the datacard.")
       ("cl,C",   po::value<float>(&cl)->default_value(0.95), "Confidence Level")
       ("rMin",   po::value<float>(&rMin_), "Override minimum value for signal strength (default is 0)")
       ("rMax",   po::value<float>(&rMax_), "Override maximum value for signal strength (default is 20)")
@@ -787,9 +786,9 @@ void Combine::run(TString hlfFile, const std::string &dataset, double &limit, do
 
   /*
   if (withSystematics && nuisances == 0) {
-      std::cout << "The model has no constrained nuisance parameters. Please run the limit tool with no systematics (option -S 0)." << std::endl;
+      std::cout << "The model has no constrained nuisance parameters. Please run the limit tool with no systematics (option --freezeParameters allConstrainedNuisances)." << std::endl;
       std::cout << "To make things easier, I will assume you have done it." << std::endl;
-      if (verbose) Logger::instance().log(std::string(Form("Combine.cc: %d -- The signal model has no constrained nuisance parameters so I have assumed you don't need a pdf for them. Please re-run with -S 0 to be sure!",__LINE__)),Logger::kLogLevelInfo,__func__);
+      if (verbose) Logger::instance().log(std::string(Form("Combine.cc: %d -- The signal model has no constrained nuisance parameters so I have assumed you don't need a pdf for them. Please re-run with --freezeParameters allConstrainedNuisances to be sure!",__LINE__)),Logger::kLogLevelInfo,__func__);
       withSystematics = false;
   } else if (!withSystematics && nuisances != 0) {
     std::cout << "Will set nuisance parameters to constants: " ;
