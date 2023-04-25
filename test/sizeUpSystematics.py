@@ -198,7 +198,7 @@ for combo in combinationsToRemove:
     combineCmds = list()
     for mass in options.masses:
         combineMethod = "Asymptotic"
-        combineOpts = "--minosAlgo=stepping -M %s -S 1 -m %g" % (combineMethod, mass)
+        combineOpts = "--minosAlgo=stepping -M %s -m %g" % (combineMethod, mass)
         combineOut = "higgsCombine%s.%s.mH%g.root" % (fName, combineMethod, mass)
 
         combineCmd = "combine --verbose=1 root/%s %s -n %s &> log/%s.log && mv %s root/" % (tempOut, combineOpts, fName, combineOut, combineOut)
