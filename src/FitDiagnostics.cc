@@ -1338,7 +1338,7 @@ void FitDiagnostics::createFitResultTrees(const RooStats::ModelConfig &mc, bool 
          processNormalizations_ = new double[norms->getSize()];
          processNormalizationsShapes_ = new double[totalBins];
 
-	 // If no systematic (-S 0), then don't make nuisance trees
+	 // If no systematic (--freezeParameters allConstrainedNuisances ), then don't make nuisance trees
 	 if (withSys){
           const RooArgSet *cons = mc.GetGlobalObservables();
           const RooArgSet *nuis = mc.GetNuisanceParameters();

@@ -17,7 +17,7 @@ suite += [
     )
 ]
 suite += [(M, "*", MultiDatacardTest("Gamma", datacardGlob("gammas/counting-*.txt"), M, ""))]
-suite += [(M, "*", MultiDatacardTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "-S 0"))]
+suite += [(M, "*", MultiDatacardTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "--freezeParameters allConstrainedNuisances"))]
 suite += [
     (
         M,

@@ -64,7 +64,7 @@ suite += [
 ]
 
 suite += [(M, "*", MultiDatacardTest("HWW", datacardGlob("hww4ch-1fb-B*.txt"), M, ""))]
-suite += [(M, "*", MultiDatacardTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "-S 0"))]
+suite += [(M, "*", MultiDatacardTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "--freezeParameters allConstrainedNuisances"))]
 suite += [
     (
         M,
@@ -76,7 +76,7 @@ suite += [
     (
         M,
         "*",
-        MultiDatacardTest("HWW_Sig_S0", datacardGlob("hww4ch-1fb-S*.txt"), M, "-S 0  --signif"),
+        MultiDatacardTest("HWW_Sig_S0", datacardGlob("hww4ch-1fb-S*.txt"), M, "--freezeParameters allConstrainedNuisances  --signif"),
     )
 ]
 

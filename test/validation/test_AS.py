@@ -44,7 +44,7 @@ suite += [
     (
         M,
         "*",
-        MultiDatacardWithExpectedTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "-S 0"),
+        MultiDatacardWithExpectedTest("HWW_S0", datacardGlob("hww4ch-1fb-B*.txt"), M, "--freezeParameters allConstrainedNuisances"),
     )
 ]
 

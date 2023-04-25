@@ -253,7 +253,7 @@ else:
 time.sleep(1)
 
 cmd = "combine -M MultiDimFit " + re.sub(".txt", ".root", opts.datacard)
-# cmd += " -S 0 "
+# cmd += " --freezeParameters allConstrainedNuisances "
 cmd += " --floatOtherPOIs=1 "
 cmd += " --saveWorkspace "
 

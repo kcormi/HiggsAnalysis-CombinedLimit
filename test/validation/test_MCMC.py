@@ -74,7 +74,7 @@ suite += [
             "HWW_S0",
             datacardGlob("hww4ch-1fb-B-mH1[46]0.txt"),
             M,
-            "-H ProfileLikelihood -S 0 --tries 50",
+            "-H ProfileLikelihood --freezeParameters allConstrainedNuisances --tries 50",
         ),
     )
 ]

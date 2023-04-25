@@ -7,7 +7,7 @@
 # the simulated number of background  events for a given number of toys
 ##############
 # Usage: First run Higgs Combine tool, for example:
-# combine datacard.txt -S 0 -M GenerateOnly -t 10000 --saveToys
+# combine datacard.txt --freezeParameters allConstrainedNuisances -M GenerateOnly -t 10000 --saveToys
 #
 # The -M GenerateOnly option generates only toys without running the limits.
 # Greatly decreases the processing time: for a single-bin counting experiment,
