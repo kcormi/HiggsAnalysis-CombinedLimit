@@ -163,12 +163,7 @@ Combine::Combine() :
 }
 
 void Combine::applyOptions(const boost::program_options::variables_map &vm) {
-  /*if(withSystematics) {
-    std::cout << ">>> including systematics" << std::endl;
-  } else {
-    std::cout << ">>> no systematics included" << std::endl;
-  } 
-  */
+
   unbinned_ = vm.count("unbinned");
   generateBinnedWorkaround_ = vm.count("generateBinnedWorkaround");
   if (unbinned_ && generateBinnedWorkaround_) throw std::logic_error("You can't set generateBinnedWorkaround and unbinned options at the same time");
@@ -179,7 +174,6 @@ void Combine::applyOptions(const boost::program_options::variables_map &vm) {
   hintUsesStatOnly_ = vm.count("hintStatOnly");
   saveWorkspace_ = vm.count("saveWorkspace");
   toysNoSystematics_ = vm.count("toysNoSystematics");
-  //if (!withSystematics) toysNoSystematics_ = true;  // if no systematics, also don't expect them for the toys
   toysFrequentist_ = vm.count("toysFrequentist");
   if (toysNoSystematics_ && toysFrequentist_) throw std::logic_error("You can't set toysNoSystematics and toysFrequentist options at the same time");
   if (modelConfigNameB_.find("%s") != std::string::npos) {
@@ -273,7 +267,6 @@ void Combine::run(TString hlfFile, const std::string &dataset, double &limit, do
     TString txtFile = fileToLoad.Data();
     //TString options = TString::Format(" -m %f -D %s", mass_, dataset.c_str());
     TString options = TString::Format(" -m %f", mass_);
-    //if (!withSystematics) options += " --stat ";
     if (compiledExpr_)    options += " --compiled ";
     if (verbose > 1)      options += TString::Format(" --verbose %d", verbose-1);
     if (algo->name() == "FitDiagnostics" || algo->name() == "MultiDimFit") options += " --for-fits";
@@ -783,18 +776,6 @@ void Combine::run(TString hlfFile, const std::string &dataset, double &limit, do
   }
   
   if (nuisances == 0) withSystematics = false;
-
-  /*
-  if (withSystematics && nuisances == 0) {
-      std::cout << "The model has no constrained nuisance parameters. Please run the limit tool with no systematics (option --freezeParameters allConstrainedNuisances)." << std::endl;
-      std::cout << "To make things easier, I will assume you have done it." << std::endl;
-      if (verbose) Logger::instance().log(std::string(Form("Combine.cc: %d -- The signal model has no constrained nuisance parameters so I have assumed you don't need a pdf for them. Please re-run with --freezeParameters allConstrainedNuisances to be sure!",__LINE__)),Logger::kLogLevelInfo,__func__);
-      withSystematics = false;
-  } else if (!withSystematics && nuisances != 0) {
-    std::cout << "Will set nuisance parameters to constants: " ;
-    utils::setAllConstant(*nuisances, true);
-  }
-  */
 
   bool validModel = validateModel_ ? utils::checkModel(*mc, false) : true;
   if (validateModel_ && verbose) std::cout << "Sanity checks on the model: " << (validModel ? "OK" : "FAIL") << std::endl;
