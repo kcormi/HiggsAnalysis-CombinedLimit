@@ -24,3 +24,9 @@ An output `ROOT` file is created, along with the `TTree` which will store result
 A number of runtime definitions are then set (for `RooFit`?).
 
 Finally the `Combine` objects `run` method is called, outputs are written and some performance metrics are printed.
+
+```mermaid
+
+graph TD;
+   combine.cpp --> Combiner Object
+```

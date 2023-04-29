@@ -167,6 +167,30 @@ Derived class of LimitAlgo, but now with fit-specific variables and methods, suc
 after some preliminaries, create a CascadeMinimizer object, set some settings (ErrorLevel, bounds, ...)
 
 then call the minmizers `minimize` method
+optionally run HESSE after the fit (the minimizers.hesse method), if the hesse options has been set
+
+## run Method
+
+sets up a CoutSentry (redirecting output)
+
+adds all parameters to the RooArgSet allParams_
+creates new ttree branches if necessary (nll, nll0)
+
+Sets the right profiling mode (ProfileUnconstrained, ProfilePOI, NoProfiling, or ProfileAll) 
+by either looping over all nuisances, looping over all non-POIs, or over all parameters and freezing them
+
+Do something about protecting unbinned channels
+KYLE NOTE: look into this
+
+Do something about optimizing bounds
+KYLE NOTE: look into this
+
+then call the `runSpecific` method (to be implemented per Fit Algorithm)
+
+something with protecting unbinned channels 
+KYLE NOTE: look into this
+
+and unset bounds
 
     
 # CascadeMinimizer
@@ -187,7 +211,7 @@ for a single parameter, r, step through its range, keep track of the lowest nll 
 
 
 
-
+# RobustHesse object
 
 
 
