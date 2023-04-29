@@ -28,5 +28,5 @@ Finally the `Combine` objects `run` method is called, outputs are written and so
 ```mermaid
 
 graph TD;
-   combine.cpp --> Combiner Object
+   combine.cpp --> Combiner Object;
 ```
