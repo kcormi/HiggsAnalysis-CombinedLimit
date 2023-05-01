@@ -55,6 +55,9 @@ The ToySampler object gets passed (along with a number of other setup objects) t
 
 utlimately the `HybridCalculator`'s `GetHypoTest` method is called, which
     
+## Hybrid Toy Objects
+
+##
 
 # Toy generating objects
 

@@ -28,5 +28,15 @@ Finally the `Combine` objects `run` method is called, outputs are written and so
 ```mermaid
 
 graph TD;
-   combine.cpp-->CombinerObject;
+    subgraph combine.cpp;
+    algos[declare algorithms];
+    opts[declare optioons];
+    parse1[parse generic options]; 
+    this_algo[get algorithm];
+    parse2[parse algorithm specific options];
+    tree[create output tree];
+    rtdef[set runtime defs];
+    run[( call `Combine` run )];
+    write[ save ];
+    algos-->opts-->parse1-->this_algo-->parse2-->tree-->rtdef-->run-->write;
 ```
