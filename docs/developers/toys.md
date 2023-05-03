@@ -67,12 +67,21 @@ utlimately the `HybridCalculator`'s `GetHypoTest` method is called, which
 This is a derived class of the RooStats [ToyMCSampler](https://root.cern.ch/doc/master/classRooStats_1_1ToyMCSampler.html)
 The ToyMCSampler is used to both generate toys for a given point in parameter space of the model, and evaluate some test statistic on those toys.
 
-KYLE NOTE: It's not clear to me yet what the exact differences are and what the need for a separate derived class is.
+the ToyMCSampler can the return the distribution of the test statistic over the toys
+
+## HybridCalculator objects
+
+The [HybridCalculator](https://root.cern.ch/doc/master/classRooStats_1_1HybridCalculator.html) is a standard RooStats object, which relies on data, a null model, an alternative model and a ToyMCSampler object.
+It allows for running hypothesis tests using toy data, and can comapre, for example the null model to the alternative model to get CLs, CLsplusb, Significance.
+
+it is relied upon heavily by the HybridNew methods
 
 ## SimPdfGenInfo
 
 A sort of container class which holds various info about simultaneous pdf, observables, data, categories, arg set.
-This can be used to generate toys. 
+This can be used to generate toys. It is used internally, for example by the ToyMCSamplerOpt. 
+
+However, it can also be called and used directly, as it is when generating toys through the main combine interface, rather than through HybridNew.
 
 ## SinglePdfGenInfo
 
