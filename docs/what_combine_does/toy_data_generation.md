@@ -33,7 +33,7 @@ The likelihood for this model is:
 $$ \mathcal{L} \propto \mathrm{Poiss}(n | n_\mathrm{exp}(\mu,\theta) ) \cdot e^{(\theta - \tilde{\theta})^2} $$
 
 The frequentist generation step generates a value of $n$ (call it $n_{g}$) and $\tilde{\theta}$ (call it $\tilde{\theta}_g$) for each toy. 
-The values of $n_g$ are sample from the Poisson probability mass function with $\mu$ and $\theta$ fixed to their assumed true values. 
+The values of $n_g$ are sampled from the Poisson probability mass function with $\mu$ and $\theta$ fixed to their assumed true values. 
 The value of $\tilde{\theta}$ is generated from the gaussian probability density function with $\theta$ fixed to its assumed true value.
 
 Then, when fitting these frequentist toys in the new framework each toy will be fit using the generated values $n_{g}$ and $\tilde{\theta}_g$. i.e. using:
@@ -49,12 +49,12 @@ These toys can be used to inspect distributions of fit results under ensembles o
 
 In this form of toy generation, the parameter values are first randomized before generating the toy observations; the constraint terms however, are never changed.
 
-Considering again the example above of a single counting experiment with one parameter of interest, $\mu$, and one nuisance parameter, $\theta$, whose constraint term is a gaussian of width 1, the likelihood is:
+Considering again the example above of a single counting experiment with one parameter of interest, $\mu$, and one nuisance parameter, $\theta$, whose constraint term is a gaussian of width one, the likelihood is:
 
 $$ \mathcal{L} \propto \mathrm{Poiss}(n | n_{exp}(\mu,\theta) ) \cdot e^{(\theta - \tilde{\theta})^2}. $$
 
 For each hybrid Bayes-frequentist toy, a random value of $\theta$ is first drawn from the gaussian probability distribution defining its constraint term, lets call that value $\theta_g$. 
-Then a value for the observation $n$ is drawn using the Poisson term with $n_\mathrm{exp} = n_\mathrm{exp}(\mu, \theta_g)$, called $n_{g}$.
+Then a value for the observation $n$ is drawn using the Poisson term with $n_\mathrm{exp} = n_\mathrm{exp}(\mu, \theta_g)$, lets call this value $n_{g}$.
 
 When the fit is performed it is performed using the likelihood: 
 
