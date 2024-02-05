@@ -102,12 +102,12 @@ HybridNew::HybridNew() :
 LimitAlgo("HybridNew specific options") {
     options_.add_options()
         ("rule",    boost::program_options::value<std::string>(&rule_)->default_value(rule_),            "Rule to use: CLs, Pmu")
-        ("testStat",boost::program_options::value<std::string>(&testStat_)->default_value(testStat_),    "Test statistics: LEP, TEV, LHC (previously known as Atlas), Profile.")
+        ("testStat",boost::program_options::value<std::string>(&testStat_)->default_value(testStat_),    "Test statistic: LEP, TEV, LHC, Profile.")
         ("singlePoint",  boost::program_options::value<std::string>(&rValue_)->default_value(rValue_),  "Just compute CLs for the given value of the parameter of interest. In case of multiple parameters, use a syntax 'name=value,name2=value2,...'")
         ("onlyTestStat", "Just compute test statistic for the data (or toy if using -t N), i.e don't throw toys to calculate actual p-values (works only with --singlePoint)")
         ("generateNuisances",            boost::program_options::value<bool>(&genNuisances_)->default_value(genNuisances_), "Generate nuisance parameters for each toy")
         ("generateExternalMeasurements", boost::program_options::value<bool>(&genGlobalObs_)->default_value(genGlobalObs_), "Generate external measurements for each toy, taken from the GlobalObservables of the ModelConfig")
-        ("fitNuisances", boost::program_options::value<bool>(&fitNuisances_)->default_value(fitNuisances_), "Fit the nuisances first, before generating the toy data. Set this option to false to acheive the same results as with --bypassFrequentistFit. When not generating toys, eg as in when running with --readHybridresult, this has no effect")
+        ("fitNuisances", boost::program_options::value<bool>(&fitNuisances_)->default_value(fitNuisances_), "Fit the nuisance parameters first, before generating the toy data. Set this option to false to acheive the same results as with --bypassFrequentistFit. When not generating toys, eg as in when running with --readHybridresult, this has no effect")
         ("searchAlgo", boost::program_options::value<std::string>(&algo_)->default_value(algo_),         "Algorithm to use to search for the limit (bisection, logSecant)")
         ("toysH,T", boost::program_options::value<unsigned int>(&nToys_)->default_value(nToys_),         "Number of Toy MC extractions to compute Pmu, Pb and CLs")
         ("clsAcc",  boost::program_options::value<double>(&clsAccuracy_ )->default_value(clsAccuracy_),  "Absolute accuracy on CLs to reach to terminate the scan")
@@ -141,8 +141,8 @@ LimitAlgo("HybridNew specific options") {
         ("noUpdateGrid", "Do not update test statistics at grid points")
         ("fullBToys", "Run as many B toys as S ones (default is to run 1/4 of b-only toys)")
         ("pvalue", "Report p-value instead of significance (when running with --significance)")
-        ("adaptiveToys",boost::program_options::value<float>(&adaptiveToys_)->default_value(adaptiveToys_), "Throw less toys far from interesting contours , --toysH scaled by scale when prob is far from any of CL_i = {importanceContours} ")
-        ("importantContours",boost::program_options::value<std::string>(&scaleAndConfidenceSelection_)->default_value(scaleAndConfidenceSelection_), "Throw less toys far from interesting contours , format : CL_1,CL_2,..CL_N (--toysH scaled down when prob is far from any of CL_i) ")
+        ("adaptiveToys",boost::program_options::value<float>(&adaptiveToys_)->default_value(adaptiveToys_), "Throw fewer toys far from interesting contours , --toysH scaled by scale when probability is far from any of CL_i = {importanceContours} ")
+        ("importantContours",boost::program_options::value<std::string>(&scaleAndConfidenceSelection_)->default_value(scaleAndConfidenceSelection_), "Throw fewer toys far from interesting contours , format : CL_1,CL_2,..CL_N (--toysH scaled down when probability is far from any of CL_i) ")
         ("maxProbability", boost::program_options::value<float>(&maxProbability_)->default_value(maxProbability_),  "when point is >  maxProbability countour, don't bother throwing toys")
         ("confidenceTolerance", boost::program_options::value<float>(&confidenceToleranceForToyScaling_)->default_value(confidenceToleranceForToyScaling_),  "Determine what 'far' means for adatptiveToys. (relative in terms of (1-cl))")
         ("LHCmode", boost::program_options::value<std::string>(&mode_)->default_value(mode_),  "Shortcuts for LHC style running modes. --LHCmode LHC-significance: --generateNuisances=0 --generateExternalMeasurements=1 --fitNuisances=1 --testStat=LHC (Q_LHC, modified for discovery) --significance, --LHCmode LHC-limits: --generateNuisances=0 --generateExternalMeasurements=1 --fitNuisances=1 --testStat=LHC (Q_LHC, modified for upper limits) --rule CLs, --LHCmode LHC-feldman-cousins: --generateNuisances=0 --generateExternalMeasurements=1 --fitNuisances=1 --testStat=PL (Q_Profile, includes boundaries) --rule Pmu")
@@ -165,7 +165,7 @@ void HybridNew::applyOptions(const boost::program_options::variables_map &vm) {
         if (vm["testStat"].defaulted()) testStat_ = "LHC";
         if (vm["toys"].as<int>() > 0 and vm.count("toysFrequentist")) {
             if (vm["fitNuisances"].defaulted() && withSystematics) {
-                std::cout << "When tossing frequenst toys outside the HybridNew, the nuisances will not be refitted for each toy by default. This can be changed by specifying explicitly the fitNuisances option" << std::endl;
+                std::cout << "When tossing frequenst toys outside the HybridNew method, the nuisance parameters will not be refitted for each toy by default. This can be changed by specifying explicitly the fitNuisances option" << std::endl;
                 fitNuisances_ = false;
             }
         }
@@ -246,16 +246,16 @@ void HybridNew::validateOptions() {
     if (testStat_ == "ProfileLikelihood"          || testStat_ == "PL")   { testStat_ = "Profile"; }
     if (testStat_ == "ModifiedProfileLikelihood"  || testStat_ == "MPL")  { testStat_ = "LHC";     }
     if (testStat_ == "SignFlipProfileLikelihood"  || testStat_ == "SFPL") { testStat_ = "LHCFC";   }
-    if (testStat_ == "Atlas") { testStat_ = "LHC"; std::cout << "Note: the Atlas test statistics is now known as LHC test statistics.\n" << std::endl; }
+    if (testStat_ == "Atlas") { testStat_ = "LHC"; std::cout << "Note: the Atlas test statistic is now known as LHC test statistic.\n" << std::endl; }
     if (testStat_ != "LEP" && testStat_ != "TEV" && testStat_ != "LHC"  && testStat_ != "LHCFC" && testStat_ != "Profile" && testStat_ != "MLZ") {
-        throw std::invalid_argument("HybridNew: Test statistics should be one of 'LEP' or 'TEV' or 'LHC' (previously known as 'Atlas') or 'Profile'");
+        throw std::invalid_argument("HybridNew: Test statistic should be one of 'LEP' or 'TEV' or 'LHC' or 'Profile'");
     }
-    if (testStat_ == "LEP")     std::cout << ">>> using the Simple Likelihood Ratio test statistics (Q_LEP)" << std::endl;
-    if (testStat_ == "TEV")     std::cout << ">>> using the Ratio of Profiled Likelihoods test statistics (Q_TEV)" << std::endl;
-    if (testStat_ == "LHC")     std::cout << ">>> using the Profile Likelihood test statistics modified for upper limits (Q_LHC)" << std::endl;
-    if (testStat_ == "LHCFC")   std::cout << ">>> using the Profile Likelihood test statistics modified for upper limits and Feldman-Cousins (Q_LHCFC)" << std::endl;
-    if (testStat_ == "Profile") std::cout << ">>> using the Profile Likelihood test statistics not modified for upper limits (Q_Profile)" << std::endl;
-    if (testStat_ == "MLZ")     std::cout << ">>> using the Maximum likelihood estimator of the signal strength as test statistics" << std::endl;
+    if (testStat_ == "LEP")     std::cout << ">>> using the Simple Likelihood Ratio test statistic (Q_LEP)" << std::endl;
+    if (testStat_ == "TEV")     std::cout << ">>> using the Ratio of Profiled Likelihoods test statistic (Q_TEV)" << std::endl;
+    if (testStat_ == "LHC")     std::cout << ">>> using the Profile Likelihood test statistic modified for upper limits (Q_LHC)" << std::endl;
+    if (testStat_ == "LHCFC")   std::cout << ">>> using the Profile Likelihood test statistic modified for upper limits and Feldman-Cousins (Q_LHCFC)" << std::endl;
+    if (testStat_ == "Profile") std::cout << ">>> using the Profile Likelihood test statistic not modified for upper limits (Q_Profile)" << std::endl;
+    if (testStat_ == "MLZ")     std::cout << ">>> using the Maximum likelihood estimator of the signal strength as test statistic" << std::endl;
    
     if ( (readHybridResults_ || workingMode_ == MakeTestStatistics || workingMode_ == MakeSignificanceTestStatistics) && noUpdateGrid_) {
         // If not generating toys, don't need to fit nuisance parameters, unless requested to updateGrid 
@@ -273,7 +273,7 @@ void HybridNew::setupPOI(RooStats::ModelConfig *mc_s) {
 }
 
 bool HybridNew::run(RooWorkspace *w, RooStats::ModelConfig *mc_s, RooStats::ModelConfig *mc_b, RooAbsData &data, double &limit, double &limitErr, const double *hint) {
-    RooFitGlobalKillSentry silence(verbose <= 1 ? RooFit::WARNING : RooFit::DEBUG);
+    RooFitGlobalKillSentry silence(verbose <= 1 ? RooFit::FATAL : RooFit::DEBUG);
 
     //double minimizerTolerance_  = ROOT::Math::MinimizerOptions::DefaultTolerance();
     //std::string minimizerAlgo_  = ROOT::Math::MinimizerOptions::DefaultMinimizerAlgo();
@@ -313,16 +313,15 @@ bool HybridNew::runSignificance(RooWorkspace *w, RooStats::ModelConfig *mc_s, Ro
     }
     if (saveHybridResult_) {
         TString name = TString::Format("HypoTestResult_mh%g",mass_);
-        RooLinkedListIter it = rValues_.iterator();
-        for (RooRealVar *rIn = (RooRealVar*) it.Next(); rIn != 0; rIn = (RooRealVar*) it.Next()) {
-            name += Form("_%s%g", rIn->GetName(), rIn->getVal());
+        for (RooAbsArg *rIn : rValues_) {
+            name += Form("_%s%g", rIn->GetName(), static_cast<RooRealVar*>(rIn)->getVal());
         }
         name += Form("_%u", RooRandom::integer(std::numeric_limits<UInt_t>::max() - 1));
         writeToysHere->WriteTObject(new HypoTestResult(*hcResult), name);
         if (verbose) std::cout << "Hybrid result saved as " << name << " in " << writeToysHere->GetFile()->GetName() << " : " << writeToysHere->GetPath() << std::endl;
     }
     if (verbose > 1) {
-        std::cout << "Observed test statistics in data: " << hcResult->GetTestStatisticData() << std::endl;
+        std::cout << "Observed test statistic in data: " << hcResult->GetTestStatisticData() << std::endl;
         std::cout << "Background-only toys sampled:     " << hcResult->GetNullDistribution()->GetSize() << std::endl;
     }
     if (expectedFromGrid_) applyExpectedQuantile(*hcResult);
@@ -379,10 +378,10 @@ bool HybridNew::runLimit(RooWorkspace *w, RooStats::ModelConfig *mc_s, RooStats:
         if (grid_.size() <= 1) throw std::logic_error("The grid must contain at least 2 points."); 
         if (noUpdateGrid_) {
             if (testStat_ == "LHCFC" && rule_ == "FC" && (saveGrid_ || lowerLimit_)) {
-                std::cout << "Will have to re-run points for which the test statistics was set to zero" << std::endl;
+                std::cout << "Will have to re-run points for which the test statistic was set to zero" << std::endl;
                 updateGridDataFC(w, mc_s, mc_b, data, !fullGrid_, clsTarget);
             } else {
-                std::cout << "Will use the test statistics that had already been computed" << std::endl;
+                std::cout << "Will use the test statistic that had already been computed" << std::endl;
             }
         } else {
             updateGridData(w, mc_s, mc_b, data, !fullGrid_, clsTarget);
@@ -693,8 +692,8 @@ std::pair<double, double> HybridNew::eval(RooWorkspace *w, RooStats::ModelConfig
     }
 
     HybridNew::Setup setup;
-    RooLinkedListIter it = rVals.iterator();
-    for (RooRealVar *rIn = (RooRealVar*) it.Next(); rIn != 0; rIn = (RooRealVar*) it.Next()) {
+    for (RooAbsArg *rInAbsArg : rVals) {
+        RooRealVar *rIn = static_cast<RooRealVar*>(rInAbsArg);
         RooRealVar *r = dynamic_cast<RooRealVar *>(mc_s->GetParametersOfInterest()->find(rIn->GetName()));
         r->setVal(rIn->getVal());
         if (verbose) std::cout << "  " << r->GetName() << " = " << rIn->getVal() << " +/- " << r->getError() << std::endl;
@@ -810,9 +809,8 @@ std::unique_ptr<RooStats::HybridCalculator> HybridNew::create(RooWorkspace *w, R
 
     // print the values of the parameters used to generate the toy
     if (verbose > 2) {
-      CombineLogger::instance().log("HybridNew.cc",__LINE__,"Using the following (post-fit) parameters for No signal hypothesis ",__func__);
-      std::unique_ptr<TIterator> iter(paramsToFit->createIterator());
-      for (RooAbsArg *a = (RooAbsArg *) iter->Next(); a != 0; a = (RooAbsArg *) iter->Next()) {
+      CombineLogger::instance().log("HybridNew.cc",__LINE__,"Using the following (post-fit) parameters for 'no signal' hypothesis ",__func__);
+      for (RooAbsArg *a : *paramsToFit) {
   	TString varstring = utils::printRooArgAsString(a);
   	CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form(" %s",varstring.Data())),__func__);
       }
@@ -839,8 +837,7 @@ std::unique_ptr<RooStats::HybridCalculator> HybridNew::create(RooWorkspace *w, R
       CombineLogger::instance().log("HybridNew.cc",__LINE__,"Using the following (post-fit) parameters for S+B hypothesis ",__func__);
       RooArgSet reportParams; 
       reportParams.add(*paramsToFit); reportParams.add(poi);
-      std::unique_ptr<TIterator> iter(reportParams.createIterator());
-      for (RooAbsArg *a = (RooAbsArg *) iter->Next(); a != 0; a = (RooAbsArg *) iter->Next()) {
+      for (RooAbsArg *a : reportParams) {
   	TString varstring = utils::printRooArgAsString(a);
   	CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form(" %s",varstring.Data())),__func__);
       }
@@ -929,7 +926,7 @@ std::unique_ptr<RooStats::HybridCalculator> HybridNew::create(RooWorkspace *w, R
               paramsZero.addClone(*mc_b->GetNuisanceParameters(), true);
           } else {
               //std::cerr << "ALERT: using LEP test statistics with --fitNuisances is not validated and most likely broken" << std::endl;
-      	      CombineLogger::instance().log("HybridNew.cc",__LINE__,"[WARNING] using LEP test statistics with --fitNuisances is not validated and most likely broken",__func__);
+      	      CombineLogger::instance().log("HybridNew.cc",__LINE__,"[WARNING] using LEP test statistic with --fitNuisances is not validated and most likely broken",__func__);
               params.assignValueOnly(*mc_s->GetNuisanceParameters());
               paramsZero.assignValueOnly(*mc_s->GetNuisanceParameters());
           }
@@ -944,7 +941,7 @@ std::unique_ptr<RooStats::HybridCalculator> HybridNew::create(RooWorkspace *w, R
           }
       } else {
           //std::cerr << "ALERT: LEP test statistics without optimization not validated." << std::endl;
-      	  CombineLogger::instance().log("HybridNew.cc",__LINE__,"[WARNING] LEP test statistics without optimization not yet validated.",__func__);
+      	  CombineLogger::instance().log("HybridNew.cc",__LINE__,"[WARNING] LEP test statistic without optimization not yet validated.",__func__);
           RooArgSet paramsSnap; params.snapshot(paramsSnap); // needs a snapshot
           setup.qvar.reset(new SimpleLikelihoodRatioTestStat(*pdfB,*factorizedPdf_s));
           ((SimpleLikelihoodRatioTestStat&)*setup.qvar).SetNullParameters(paramsZero); // Null is B
@@ -971,12 +968,12 @@ std::unique_ptr<RooStats::HybridCalculator> HybridNew::create(RooWorkspace *w, R
           if (workingMode_ == MakeSignificance) r->setVal(0.0);
           setup.qvar.reset(new ProfiledLikelihoodTestStatOpt(*mc_s->GetObservables(), *mc_s->GetPdf(), mc_s->GetNuisanceParameters(),  params, poi, gobsParams,gobs, verbose, side));
       } else {
-          std::cerr << "ALERT: LHC test statistics without optimization not validated." << std::endl;
+          std::cerr << "ALERT: LHC test statistic without optimization not validated." << std::endl;
           setup.qvar.reset(new ProfileLikelihoodTestStat(*mc_s->GetPdf()));
           if (testStat_ == "LHC") {
               ((ProfileLikelihoodTestStat&)*setup.qvar).SetOneSided(true);
           } else if (testStat_ == "LHCFC") {
-              throw std::invalid_argument("Test statistics LHCFC is not supported without optimization");
+              throw std::invalid_argument("Test statistic LHCFC is not supported without optimization");
           }
       }
   } else if (testStat_ == "MLZ") {
@@ -1148,9 +1145,8 @@ HybridNew::eval(RooStats::HybridCalculator &hc, const RooAbsCollection & rVals, 
     }
     if (saveHybridResult_) {
         TString name = TString::Format("HypoTestResult_mh%g",mass_);
-        RooLinkedListIter it = rVals.iterator();
-        for (RooRealVar *rIn = (RooRealVar*) it.Next(); rIn != 0; rIn = (RooRealVar*) it.Next()) {
-            name += Form("_%s%g", rIn->GetName(), rIn->getVal());
+        for (RooAbsArg * rIn : rVals) {
+            name += Form("_%s%g", rIn->GetName(), static_cast<RooRealVar*>(rIn)->getVal());
         }
         name += Form("_%u", RooRandom::integer(std::numeric_limits<UInt_t>::max() - 1));
         writeToysHere->WriteTObject(new HypoTestResult(*hcResult), name);
@@ -1227,7 +1223,7 @@ void HybridNew::applyExpectedQuantile(RooStats::HypoTestResult &hcres) {
           std::vector<Double_t> btoys = hcres.GetNullDistribution()->GetSamplingDistribution();
           std::sort(btoys.begin(), btoys.end());
           Double_t testStat = btoys[std::min<int>(floor((1.-quantileForExpectedFromGrid_) * btoys.size()+0.5), btoys.size())];
-          if (verbose > 0) CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form("Test statistics for %.3f quantile: %.3f",quantileForExpectedFromGrid_,testStat)),__func__); 
+          if (verbose > 0) CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form("Test statistic for %.3f quantile: %.3f",quantileForExpectedFromGrid_,testStat)),__func__); 
           hcres.SetTestStatisticData(testStat);
           //std::cout << "CLs quantile = " << (CLs_ ? hcres.CLs() : hcres.CLsplusb()) << " for test stat = " << testStat << std::endl;
       }
@@ -1315,7 +1311,7 @@ void HybridNew::applySignalQuantile(RooStats::HypoTestResult &hcres) {
     std::vector<Double_t> stoys = hcres.GetAltDistribution()->GetSamplingDistribution();
     std::sort(stoys.begin(), stoys.end());
     Double_t testStat = stoys[std::min<int>(floor(quantileForExpectedFromGrid_ * stoys.size()+0.5), stoys.size())];
-    if (verbose > 0)  CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form("Test statistics for %.3f quantile: %.3f",quantileForExpectedFromGrid_,testStat)),__func__);
+    if (verbose > 0)  CombineLogger::instance().log("HybridNew.cc",__LINE__,std::string(Form("Test statistic for %.3f quantile: %.3f",quantileForExpectedFromGrid_,testStat)),__func__);
     hcres.SetTestStatisticData(testStat);
 }
 
@@ -1404,7 +1400,7 @@ RooStats::HypoTestResult * HybridNew::evalFrequentist(RooStats::HybridCalculator
     std::vector<Double_t> distSB, distB;
     *parS = *snapGlobalObs_;
     Double_t tsData = hc.GetTestStatSampler()->GetTestStatistic()->Evaluate(*realData_, nullPoi);
-    if (verbose > 2) std::cout << "Test statistics on data: " << tsData << std::endl;
+    if (verbose > 2) std::cout << "Test statistic on data: " << tsData << std::endl;
     for (int i = 0; i < toysSB; ++i) {
        // Initialize parameters to snapshot
        *parS = *hc.GetAlternateModel()->GetSnapshot(); 
@@ -1454,8 +1450,8 @@ RooStats::HypoTestResult * HybridNew::readToysFromFile(const RooAbsCollection & 
     if (verbose) std::cout << "Reading toys for ";
     TString prefix1 = TString::Format("HypoTestResult_mh%g",mass_);
     TString prefix2 = TString::Format("HypoTestResult");
-    RooLinkedListIter it = rVals.iterator();
-    for (RooRealVar *rIn = (RooRealVar*) it.Next(); rIn != 0; rIn = (RooRealVar*) it.Next()) {
+    for (RooAbsArg *rInAbsArg : rVals) {
+        RooRealVar *rIn = static_cast<RooRealVar*>(rInAbsArg);
         if (verbose) std::cout << rIn->GetName() << " = " << rIn->getVal() << "   ";
         prefix1 += Form("_%s%g", rIn->GetName(), rIn->getVal());
         prefix2 += Form("_%s%g", rIn->GetName(), rIn->getVal());
