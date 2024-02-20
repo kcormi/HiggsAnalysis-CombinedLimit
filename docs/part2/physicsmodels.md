@@ -261,6 +261,7 @@ w(\vec{\mu}) = w_0 (\vec{\mu}^\top M \theta)
 $$
 
 as a function of the POI vector $\vec{\mu}$, a nominal template $w_0$, and a scaling matrix $M$.
+
 To see how this parameterization relates to that of the previous section, we can define:
 
 $$
