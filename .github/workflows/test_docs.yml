@@ -1,0 +1,28 @@
+name: Docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - docs_test_deploy
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: Build and deploy test docs
+
+    steps:
+    - uses: actions/checkout@docs_test_deploy
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Build documentation
+      run: |
+        python3 -m pip install mkdocs pymdown-extensions mkdocs-material
+        mkdocs build --verbose --clean
+    - name: Deploy documentation
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+
