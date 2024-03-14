@@ -91,12 +91,12 @@ This way, $t$ is positive, and larger values of $t$ represent larger differences
 
 #### Sets of test statistics
 
-If the parameters of both likelihoods in the ratio are fixed, either *a priori* or as a definite function of the data, then that defines a single test statistic.
+If the parameters of both likelihoods in the ratio are fixed to a single value, then that defines a single test statistic.
 Often, however, we are interested in testing ["sets" of models](../../what_combine_does/model_and_likelihood/#sets-of-observation-models), parameterized by some set of values $(\vec{\mu}, \vec{\nu})$.
 
 This is important in limit setting for example, where we perform statistical tests to exclude entire ranges of the parameter space.
 
-In these cases, the likelihood ratio (or a function of it) is not a single test statistic, but a set of test statistics parameterized by the model parameters.
+In these cases, the likelihood ratio (or a function of it) can be used to define a set of test statistics parameterized by the model parameters.
 For example, a very useful set of test statistics is:
 
 $$ t_{\vec{\mu}} \propto -\log(\frac{\mathcal{L}(\vec{\mu})}{\mathcal{L}(\vec{\hat{\mu}})}) $$.
@@ -112,12 +112,12 @@ Under [appropriate conditions](https://arxiv.org/abs/1911.10237), the distributi
 Then, the p-value of the observed test statistic can be calculated from the known form of the expected distribution. 
 This is also true for a number of the other test statistics derived from the likelihood ratio, where [asymptotic approximations have been derived](https://arxiv.org/abs/1007.1727).
 
-Combine provides asymptotic methods, for [limit setting](../../part3/commonstatsmethods/#asymptotic-frequentist-limits) and [significance tests](../../part3/commonstatsmethods/#asymptotic-significances), which make used of these approximations for fast calculations.
+Combine provides asymptotic methods, for [limit setting](../../part3/commonstatsmethods/#asymptotic-frequentist-limits), [significance tests](../../part3/commonstatsmethods/#asymptotic-significances), and [computing confidence intervals](../../part3/commonstatsmethods/#likelihood-fits-and-scans) which make used of these approximations for fast calculations.
 
 In the general case, however, the distribution of the test statistic is not known, and it must be estimated.
 Typically it is estimated by generating many sets of pseudo-data from the model and using the emprirical distribution of the test statistic.
 
-Combine provides methods for [limit setting](../../part3/commonstatsmethods/#computing-limits-with-toys) and [significance tests](../../part3/commonstatsmethods/#computing-significances-with-toys) which use pseudodata generation to estimate the expected test-statistic distributions, and therefore don't depend on the asymptotic approximation.
+Combine also provides methods for [limit setting](../../part3/commonstatsmethods/#computing-limits-with-toys), [significance tests](../../part3/commonstatsmethods/#computing-significances-with-toys), and [computing confidence intervals](../../part3/commonstatsmethods/#feldman-cousins) which use pseudodata generation to estimate the expected test-statistic distributions, and therefore don't depend on the asymptotic approximation.
 Methods are also provided for [generating pseudodata](../../part3/runningthetool/#toy-data-generation) without running a particular test, which can be saved and used for estimating expected distributions.
 
 ### Parameter Estimation using the likelihood ratio
