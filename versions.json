@@ -5,6 +5,13 @@
     "aliases": []
   },
   {
+    "version": "19.11.12",
+    "title": "19.11.12",
+    "aliases": [
+      "test-deploy"
+    ]
+  },
+  {
     "version": "9.2.0.test",
     "title": "9.2.0.test",
     "aliases": []
