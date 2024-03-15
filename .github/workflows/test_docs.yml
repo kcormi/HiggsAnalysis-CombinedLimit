@@ -23,7 +23,7 @@ jobs:
         git fetch origin gh-pages --depth=1
         git config user.name ci-bot
         git config user.email ci-bot@example.com
-        mike deploy 29.8.12 latest --push
+        mike deploy latest --push
     #- name: Deploy documentation
     #  uses: peaceiris/actions-gh-pages@v3
     #  with:
