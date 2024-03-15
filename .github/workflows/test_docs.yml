@@ -22,7 +22,7 @@ jobs:
         #mkdocs build --verbose --clean
         git config user.name ci-bot
         git config user.email ci-bot@example.com
-        mike deploy latest
+        mike deploy 39.2.0 latest --push
     #- name: Deploy documentation
     #  uses: peaceiris/actions-gh-pages@v3
     #  with:
