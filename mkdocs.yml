@@ -47,7 +47,12 @@ theme:
             - search.highlight
             - search.suggest
             - toc.follow
+plugins:
+    - mike
 
+extra:
+    version:
+        provider: mike
 
 extra_css:
   - "mystyle.css"
