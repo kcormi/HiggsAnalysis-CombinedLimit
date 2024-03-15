@@ -22,10 +22,10 @@ jobs:
         #mkdocs build --verbose --clean
         git config user.name ci-bot
         git config user.email ci-bot@example.com
-        mike deploy 119.2.8 latest
-    - name: Deploy documentation
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
+        mike deploy latest
+    #- name: Deploy documentation
+    #  uses: peaceiris/actions-gh-pages@v3
+    #  with:
+    #    github_token: ${{ secrets.GITHUB_TOKEN }}
+    #    publish_dir: ./site
 
