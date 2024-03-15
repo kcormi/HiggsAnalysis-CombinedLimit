@@ -20,9 +20,10 @@ jobs:
       run: |
         python3 -m pip install mkdocs pymdown-extensions mkdocs-material mike
         #mkdocs build --verbose --clean
+        git fetch origin gh-pages --depth=1
         git config user.name ci-bot
         git config user.email ci-bot@example.com
-        mike deploy 39.2.0 latest --push
+        mike deploy 29.8.12 latest --push
     #- name: Deploy documentation
     #  uses: peaceiris/actions-gh-pages@v3
     #  with:
