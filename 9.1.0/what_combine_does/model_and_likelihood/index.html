@@ -73,6 +73,24 @@
       
     </div>
     
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../.."> 
+
+
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
     
       
 
@@ -1592,8 +1610,8 @@
 <p>The observation model, <span class="arithmatex"><span class="MathJax_Preview">\mathcal{M}( \vec{\Phi})</span><script type="math/tex">\mathcal{M}( \vec{\Phi})</script></span> defines the probability for any set of observations given specific values of the input parameters of the model <span class="arithmatex"><span class="MathJax_Preview">\vec{\Phi}</span><script type="math/tex">\vec{\Phi}</script></span>.
 The probability for any observed data is denoted:</p>
 <div class="arithmatex">
-<div class="MathJax_Preview"> p_{\mathcal{M}}(\mathrm{data}; \vec{\Phi} ) </div>
-<script type="math/tex; mode=display"> p_{\mathcal{M}}(\mathrm{data}; \vec{\Phi} ) </script>
+<div class="MathJax_Preview"> p_{\mathcal{M}}(\mathrm{data}; \vec{\Phi}_0 ) </div>
+<script type="math/tex; mode=display"> p_{\mathcal{M}}(\mathrm{data}; \vec{\Phi}_0 ) </script>
 </div>
 <p>where the subscript <span class="arithmatex"><span class="MathJax_Preview">\mathcal{M}</span><script type="math/tex">\mathcal{M}</script></span> is given here to remind us that these are the probabilities according to this particular model (though usually we will omit it for brevity).</p>
 <p>Combine is designed for counting experiments, where the number of events with particular features are counted.
@@ -2051,7 +2069,7 @@ When combining the models, the data likelihoods of the binned and unbinned chann
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>

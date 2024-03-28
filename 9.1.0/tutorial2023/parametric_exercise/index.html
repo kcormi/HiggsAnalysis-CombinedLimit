@@ -73,6 +73,24 @@
       
     </div>
     
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../.."> 
+
+
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
     
       
 
@@ -1716,8 +1734,7 @@
 <h1 id="parametric-models-in-combine">Parametric Models in Combine</h1>
 <h2 id="getting-started">Getting started</h2>
 <p>By now you should have a working setup of Combine v9 from the pre-tutorial exercise. If so then move onto the cloning of the parametric fitting exercise gitlab repo below. If not then you need to set up a CMSSW area and checkout the combine package:</p>
-<pre><code class="language-shell">cmssw-el7
-cmsrel CMSSW_11_3_4
+<pre><code class="language-shell">cmsrel CMSSW_11_3_4
 cd CMSSW_11_3_4/src
 cmsenv
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
@@ -1725,7 +1742,7 @@ cd HiggsAnalysis/CombinedLimit
 
 cd $CMSSW_BASE/src/HiggsAnalysis/CombinedLimit
 git fetch origin
-git checkout v9.1.0
+git checkout v9.0.0
 </code></pre>
 <p>We will also make use of another package, <code>CombineHarvester</code>, which contains some high-level tools for working with combine. The following command will download the repository and checkout just the parts of it we need for this exercise:</p>
 <pre><code class="language-shell">cd $CMSSW_BASE/src/
@@ -1735,8 +1752,10 @@ bash &lt;(curl -s https://raw.githubusercontent.com/cms-analysis/CombineHarveste
 <pre><code class="language-shell">scramv1 b clean; scramv1 b
 cmsenv
 </code></pre>
-<p>Finally, let's move to the working directory for this tutorial which contains all of the inputs and scripts needed to run the parametric fitting exercise:</p>
-<pre><code class="language-shell">cd $CMSSW_BASE/src/HiggsAnalysis/CombinedLimit/data/tutorials/parametric_exercise
+<p>Finally, let's clone the working directory for this tutorial which contains all of the inputs and scripts needed to run the parametric fitting exercise:</p>
+<pre><code class="language-shell">cd $CMSSW_BASE/src/
+git clone https://gitlab.cern.ch/jlangfor/combinetutorial-2023-parametric.git
+cd combinetutorial-2023-parametric
 </code></pre>
 <h2 id="session-structure">Session structure</h2>
 <p>The exercise is split into six parts which cover:</p>
@@ -2678,7 +2697,7 @@ plotImpacts.py -i impacts_part6.json -o impacts_part6_r_VBF --POI r_VBF
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>

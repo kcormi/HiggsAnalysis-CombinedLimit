@@ -73,6 +73,24 @@
       
     </div>
     
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../.."> 
+
+
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
     
       
 
@@ -1838,12 +1856,9 @@ canv = ROOT.TCanvas()
 gr.Draw(&quot;ALP&quot;)
 canv.SaveAs(&quot;likelihoodscan.pdf&quot;)
 </code></pre>
-<p>Well, this is doable - but we were only looking at a simple one-bin counting experiment. This might become rather cumbersome for large models... <span class="arithmatex"><span class="MathJax_Preview">[*]</span><script type="math/tex">[*]</script></span></p>
-<p>For the next set ot tutorials, we will now switch to working with <span style="font-variant:small-caps;">Combine</span> that will help in building the statistical model and do the statistical analysis, instead of  building the likelihood with <code>RooFit</code>.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p><code>RooFit</code> does have additional functionality to help with statistical model building, but we will not go into detail in these tutorials.   </p>
-</div>
+<p>Well, this is doable - but we were only looking at a simple one-bin counting experiment. This might become rather cumbersome for large models... <span class="arithmatex"><span class="MathJax_Preview">[*]</span><script type="math/tex">[*]</script></span>
+We will now switch to <span style="font-variant:small-caps;">Combine</span> which will make it a lot easier to set up your model and do the statistical analysis than trying to build the likelihood yourself.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">[*]</span><script type="math/tex">[*]</script></span> Side note - <code>RooFit</code> does have additional functionality to help with statistical model building, but we will not go into detail today.   </p>
 
 
 
@@ -1936,7 +1951,7 @@ canv.SaveAs(&quot;likelihoodscan.pdf&quot;)
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>

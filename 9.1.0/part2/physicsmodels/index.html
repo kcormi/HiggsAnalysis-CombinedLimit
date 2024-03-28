@@ -73,6 +73,24 @@
       
     </div>
     
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../.."> 
+
+
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
     
       
 
@@ -1338,8 +1356,7 @@ p(n_{\mathrm{obs}}| r,\nu_{S},\nu_{B})\propto
   raise RuntimeError, &quot;Unknown production mode '%s'&quot; % production
 </code></pre>
 <p>You should note that <code>text2workspace</code> will look for the python module in <code>PYTHONPATH</code>. If you want to keep your model local, you'll need to add the location of the python file to <code>PYTHONPATH</code>.</p>
-<p>A number of models used in the LHC Higgs combination paper can be found in <a href="https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/blob/main/python/LHCHCGModels.py">LHCHCGModels.py</a>. </p>
-<p>The models can be applied to the datacard by using the <code>-P</code> option, for example <code>-P HiggsAnalysis.CombinedLimit.HiggsCouplings:c7</code>, and others that are defined in <a href="https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/blob/main/python/HiggsCouplings.py">HiggsCouplings.py</a>. </p>
+<p>A number of models used in the LHC Higgs combination paper can be found in <a href="https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/blob/main/python/LHCHCGModels.py">LHCHCGModels.py</a>. These can be easily accessed by providing for example <code>-P HiggsAnalysis.CombinedLimit.HiggsCouplings:c7</code> and others defined un <a href="https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/blob/main/python/HiggsCouplings.py">HiggsCouplings.py</a>.</p>
 <p>Below are some (more generic) example models that also exist in GitHub.</p>
 <h3 id="multisignalmodel-ready-made-model-for-multiple-signal-processes">MultiSignalModel ready made model for multiple signal processes</h3>
 <p><span style="font-variant:small-caps;">Combine</span> already contains a model <strong><code>HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel</code></strong> that can be used to assign different signal strengths to multiple processes in a datacard, configurable from the command line.</p>
@@ -1669,7 +1686,7 @@ amplitude as follows:</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.expand", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
