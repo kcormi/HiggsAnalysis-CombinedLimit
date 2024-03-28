@@ -52,6 +52,7 @@ plugins:
     - search
     - mike:
         alias_type: redirect
+        deploy_prefix: ''
 
 extra:
     version:
