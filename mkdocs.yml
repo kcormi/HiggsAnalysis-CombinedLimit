@@ -50,7 +50,7 @@ theme:
             - toc.follow
 plugins:
     - search
-    - mike
+    - mike:
         alias_type: redirect
 
 extra:
